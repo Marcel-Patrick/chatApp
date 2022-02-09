@@ -9,6 +9,11 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+.cache
+.parcel-cache
+
 
 # macOS
 .DS_Store
+**/.DS_Store
+
