@@ -16,15 +16,11 @@ const userIcon = require("../assets/A5_project_assets/icon.svg");
 export default class Start extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", backgroundColor: "white", textColor: "black" };
+    this.state = { username: "", backgroundColor: "white" };
   }
 
   changeBackgroundColor = (newColor) => {
-    let textColor = "#000000";
-    if (newColor === this.colors.color1 || newColor === this.colors.color2) {
-      textColor = "#FFFFFF";
-    }
-    this.setState({ backgroundColor: newColor, textColor });
+    this.setState({ backgroundColor: newColor });
   };
 
   //background color choices
@@ -95,7 +91,6 @@ export default class Start extends Component {
                 this.props.navigation.navigate("Chat", {
                   username: this.state.username,
                   backgroundColor: this.state.backgroundColor,
-                  textColor: this.state.textColor,
                 })
               }
             >

@@ -137,3 +137,7 @@ Once done, run the following command to install the necessary dependencies that 
 
 npm install @react-navigation/native @react-navigation/stack
 expo install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+12. In this project we will working with Gifted Chat<br/>
+    Gifted Chat provides the entire interface, from the text input field, to the speech bubbles, to the “Send” button, meaning that all you need to do is feed it messages and take care of authentication and message storage.<br/>
+    run npm install react-native-gifted-chat --save in the Terminal
