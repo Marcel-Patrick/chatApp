@@ -141,3 +141,44 @@ expo install react-native-reanimated react-native-gesture-handler react-native-s
 12. In this project we will working with Gifted Chat<br/>
     Gifted Chat provides the entire interface, from the text input field, to the speech bubbles, to the “Send” button, meaning that all you need to do is feed it messages and take care of authentication and message storage.<br/>
     run npm install react-native-gifted-chat --save in the Terminal
+
+13. Setting Up a Firestore Database: <br/>
+    Head over to: https://firebase.google.com/ and click Sign in in the upper-right corner. Use your existing Google credentials to sign in and create a new Firebase account. Next, click on the Go to console link, which is also in the top-right corner of the window, and click on Create Project (or Add project if you’ve created Firebase projects before). Give your project a name and click Create Project. the Google Firebase dashboard will be predented, click Develop from the menu, select Cloud Firestore, then select Create Database. let’s go with the Start in test mode option! Next be asked to select the location of Cloud Firestore. For now, pick whichever option listed under the Multi-region label is closest to you, then click Done.
+
+14. Click the Start collection button to launch the modal and type in the collection name. Start by adding a “Document ID.<br/>
+    At any rate, with the document ID added, you can begin adding your attributes.<br/>
+    Next comes the “items” field. Once everything has been added (and you’ve double-checked your work for errors!), save the new document to your new collection.
+
+15. Setting up Firestore for a React Native Project<br/>
+    run npm install --save firebase@7.9.0
+
+    16. Go ahead and open up your “App.js” file in your code editor and import Firestore:<br/>
+        const firebase = require('firebase');<br/>
+        require('firebase/firestore');
+
+16. Back in the Firestore project in your browser, open up your “Project Settings”, <br/>
+    under the General tab, you’ll find a section called Your apps, which is where you can generate configurations for different platforms. Click the Firestore for Web button (it may be shown as the </> icon).<br/>
+    For now, only fill in a name for your chat application (e.g., “chat_web_app”), then click Register to generate the configuration code.
+
+17. Copy the contents of the config object (from { apiKey:… to messagingSenderId:…}) in this modal. <br/>
+    You’ll be integrating this configuration info into your “App.js” file. But before you can simply paste it into your file, you first need to create a constructor in your App class that will initialize the Firestore app. Within that constructor, you can paste the data you copied from the config object, leading to something that looks like this:<br/>
+
+    const firebaseConfig = {<br/>
+    apiKey: "AIzaSyCYhM7ZWoVZLLUD5xzpcepyID3B5w1sfuE",<br/>
+    authDomain: "test-8b82a.firebaseapp.com",<br/>
+    databaseURL: "https://test-8b82a.firebaseio.com",<br/>
+    projectId: "test-8b82a",<br/>
+    storageBucket: "test-8b82a.appspot.com",<br/>
+    messagingSenderId: "202131758796"<br/>  
+     }<br/>
+    <br/>
+    if (!firebase.apps.length){<br/>
+    firebase.initializeApp(firebaseConfig);<br/>
+    }
+
+18. Next up, you’ll need to create a reference to your Firestore collection:<br/>
+    For your chat application, you need to create a reference to your “messages” collection as follows:<br/>
+
+    this.referenceChatMessages = firebase.firestore().collection("messages");<br/>
+    This stores and retrieves the chat messages your users send. <br/>
+    If you want to read and write to an individual document WITHIN a collection, this is also possible —for instance, if you wanted to store and query an email address for a specific user in your “users” collection.
