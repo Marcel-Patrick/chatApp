@@ -10,9 +10,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const backgroundImage = require("../assets/A5_project_assets/BackgroundImage.png");
-const userIcon = require("../assets/A5_project_assets/icon.svg");
-
 export default class Start extends Component {
   constructor(props) {
     super(props);
@@ -23,15 +20,18 @@ export default class Start extends Component {
     this.setState({ backgroundColor: newColor });
   };
 
-  //background color choices
-  colors = {
-    color1: "#090C08",
-    color2: "#474056",
-    color3: "#8A95A5",
-    color4: "#B9C6AE",
-  };
-
   render() {
+    const backgroundImage = require("../assets/A5_project_assets/BackgroundImage.png");
+    const userIcon = require("../assets/A5_project_assets/icon.svg");
+
+    //background color choices
+    const colors = {
+      color1: "#090C08",
+      color2: "#474056",
+      color3: "#8A95A5",
+      color4: "#B9C6AE",
+    };
+
     return (
       <View style={styles.container}>
         <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
@@ -53,7 +53,7 @@ export default class Start extends Component {
               <View style={styles.colorPalette}>
                 <TouchableOpacity
                   onPress={() => {
-                    this.changeBackgroundColor(this.colors.color1);
+                    this.changeBackgroundColor(colors.color1);
                   }}
                   style={styles.colorSelection}
                 >
@@ -61,7 +61,7 @@ export default class Start extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    this.changeBackgroundColor(this.colors.color2);
+                    this.changeBackgroundColor(colors.color2);
                   }}
                   style={styles.colorSelection}
                 >
@@ -69,7 +69,7 @@ export default class Start extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    this.changeBackgroundColor(this.colors.color3);
+                    this.changeBackgroundColor(colors.color3);
                   }}
                   style={styles.colorSelection}
                 >
@@ -77,7 +77,7 @@ export default class Start extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    this.changeBackgroundColor(this.colors.color4);
+                    this.changeBackgroundColor(colors.color4);
                   }}
                   style={styles.colorSelection}
                 >
