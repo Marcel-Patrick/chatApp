@@ -111,7 +111,6 @@ export default class Chat extends Component {
   // when update occurred, set messages state with current data
   onCollectionUpdate = (querySnapshot) => {
     const messages = [];
-    this.saveMessages();
     // go through each document
     querySnapshot.forEach((doc) => {
       // get the QueryDocumentSnapshot's data
@@ -130,6 +129,7 @@ export default class Chat extends Component {
     this.setState({
       messages,
     });
+    this.saveMessages();
   };
 
   // unsubscriebe from collection updates
