@@ -13,7 +13,7 @@ export default class Chat extends Component {
       messages: [],
       user: {
         _id: "",
-        name: "Hi " + this.props.route.params.username,
+        name: "",
         avatar: "",
       },
     };
