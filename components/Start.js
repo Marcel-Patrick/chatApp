@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import {
   ImageBackground,
   StyleSheet,
@@ -8,12 +9,14 @@ import {
   TextInput,
   Pressable,
   TouchableOpacity,
+  LogBox,
 } from "react-native";
 
 export default class Start extends Component {
   constructor(props) {
     super(props);
     this.state = { username: "", backgroundColor: "white" };
+    LogBox.ignoreAllLogs(); //Ignore all log notifications
   }
 
   changeBackgroundColor = (newColor) => {

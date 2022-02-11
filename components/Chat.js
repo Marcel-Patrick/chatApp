@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
-import { StyleSheet, View, Platform, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, View, Platform, KeyboardAvoidingView, LogBox } from "react-native";
 import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 
 // require google firebase
@@ -32,6 +32,7 @@ export default class Chat extends Component {
       appId: "1:1037678121099:web:cfecfea34b30b00ea6448e",
       measurementId: "G-N8ZZ9TWT5X",
     };
+    LogBox.ignoreLogs(["Setting a timer", "Asyncstorage: ..."]);
 
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
