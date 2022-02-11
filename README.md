@@ -118,10 +118,8 @@ For this Achievement’s project, you’ll use React Native, Expo, and Google Fi
 5. Head over to the Expo signup page and follow the instructions to create an account.
 
 6. Go back to your terminal and navigate to the folder where all of your projects are stored.<br/>
-
-Create a new Expo project by entering:<br/>
-
-expo init hello-world<br/>
+   Create a new Expo project by entering:<br/>
+   expo init hello-world<br/>
 
 7. You’ll be asked which template you want to use for this project. Press Enter to choose the blank one
 
@@ -132,11 +130,9 @@ expo init hello-world<br/>
 10. Make sure that your phone and computer are on the same network (LAN or WiFi) and open up the Expo app on your phone. See if your new project is listed under “Recently in Development.” If your project isn’t listed, scan the QR Code provided in your browser (or your terminal) using the Expo Client app for Android or the built-in QR code scanner of your iPhone camera.
 
 11. React Navigation is made by the community and not integrated into React Native, so first you need to install it. Open up your terminal and navigate to your new project folder, then type npm install --save react-navigation.<br/>
-
-Once done, run the following command to install the necessary dependencies that react-navigation uses:<br/>
-
-npm install @react-navigation/native @react-navigation/stack
-expo install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+    Once done, run the following command to install the necessary dependencies that react-navigation uses:<br/>
+    npm install @react-navigation/native @react-navigation/stack
+    expo install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
 
 12. In this project we will working with Gifted Chat<br/>
     Gifted Chat provides the entire interface, from the text input field, to the speech bubbles, to the “Send” button, meaning that all you need to do is feed it messages and take care of authentication and message storage.<br/>
@@ -152,15 +148,15 @@ expo install react-native-reanimated react-native-gesture-handler react-native-s
 15. Setting up Firestore for a React Native Project<br/>
     run npm install --save firebase@7.9.0
 
-    16. Go ahead and open up your “App.js” file in your code editor and import Firestore:<br/>
-        const firebase = require('firebase');<br/>
-        require('firebase/firestore');
+16. Go ahead and open up your “App.js” file in your code editor and import Firestore:<br/>
+    const firebase = require('firebase');<br/>
+    require('firebase/firestore');
 
-16. Back in the Firestore project in your browser, open up your “Project Settings”, <br/>
+17. Back in the Firestore project in your browser, open up your “Project Settings”, <br/>
     under the General tab, you’ll find a section called Your apps, which is where you can generate configurations for different platforms. Click the Firestore for Web button (it may be shown as the </> icon).<br/>
     For now, only fill in a name for your chat application (e.g., “chat_web_app”), then click Register to generate the configuration code.
 
-17. Copy the contents of the config object (from { apiKey:… to messagingSenderId:…}) in this modal. <br/>
+18. Copy the contents of the config object (from { apiKey:… to messagingSenderId:…}) in this modal. <br/>
     You’ll be integrating this configuration info into your “App.js” file. But before you can simply paste it into your file, you first need to create a constructor in your App class that will initialize the Firestore app. Within that constructor, you can paste the data you copied from the config object, leading to something that looks like this:<br/>
 
     const firebaseConfig = {<br/>
@@ -176,9 +172,20 @@ expo install react-native-reanimated react-native-gesture-handler react-native-s
     firebase.initializeApp(firebaseConfig);<br/>
     }
 
-18. Next up, you’ll need to create a reference to your Firestore collection:<br/>
+19. Next up, you’ll need to create a reference to your Firestore collection:<br/>
     For your chat application, you need to create a reference to your “messages” collection as follows:<br/>
 
     this.referenceChatMessages = firebase.firestore().collection("messages");<br/>
     This stores and retrieves the chat messages your users send. <br/>
     If you want to read and write to an individual document WITHIN a collection, this is also possible —for instance, if you wanted to store and query an email address for a specific user in your “users” collection.
+
+20. To add and use Cookies in JavaScript: <br/>
+    go to https://www.npmjs.com/package/cookies and follow the npm install instructions.
+
+21. To add Local Storage Options in React Native with asyncStorage, another package called @react-native-async-storage/async-storage<br/>
+    run expo install @react-native-async-storage/async-storage in the terminal to install it to the project directory<br/>
+    afterwards run npx expo-codemod sdk41-async-storage './\*_/_' for the import the rignht dependencies
+
+22. Knowing if a user is on- or offline can be useful in determining which actions to perform. If, for example, a user is offline, you can fetch and display their data from asyncStorage; and if a user is online, you could first load their data from local storage, then sync up with the data stored on your server. To find out if a user is online or not, you can use NetInfo package.<br/>
+    install the package using expo-cli by running this command:<br/>
+    expo install @react-native-community/netinfo
