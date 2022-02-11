@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Platform, KeyboardAvoidingView, LogBox } from "react-native";
+import { StyleSheet, View, Platform, KeyboardAvoidingView } from "react-native";
 import { GiftedChat, Bubble } from "react-native-gifted-chat";
 
 // require google firebase
@@ -17,15 +17,6 @@ export default class Chat extends Component {
         avatar: "",
       },
     };
-
-    // to remove warning message in the consile
-    LogBox.ignoreLogs([
-      "Setting a timer",
-      "Warning: ...",
-      "undefined",
-      "Animated.event now requires a second argument for options",
-      "Possible Unhandled Promise Rejection (id:0)",
-    ]);
 
     // Dadabase credentials
     const firebaseConfig = {
