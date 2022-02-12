@@ -23,16 +23,10 @@ export default class CustomActions extends Component {
           mediaTypes: ImagePicker.MediaTypeOptions.Images, // only images are allowed
         }).catch((error) => console.log(error));
         // canceled process
-        console.log("imagePicker !result.cancelled 1");
 
         if (!result.cancelled) {
-          console.log("imagePicker !result.cancelled 2");
-
           const imageUrl = await this.uploadImageFetch(result.uri);
-          console.log("imagePicker !result.cancelled 3");
-
           this.props.onSend({ image: imageUrl });
-          console.log("imagePicker !result.cancelled 5");
         }
       }
     } catch (error) {
@@ -67,10 +61,9 @@ export default class CustomActions extends Component {
         const result = await Location.getCurrentPositionAsync({}).catch((error) =>
           console.log(error)
         );
-        // const longitude = JSON.stringify(result.coords.longitude);
-        // const latitude = JSON.stringify(result.coords.latitude);
         if (result) {
           this.props.onSend({
+            text: "Location",
             location: {
               longitude: result.coords.longitude,
               latitude: result.coords.latitude,
@@ -101,7 +94,6 @@ export default class CustomActions extends Component {
 
     const imageNameBefore = uri.split("/");
     const imageName = imageNameBefore[imageNameBefore.length - 1];
-    console.log("imageName ", imageName);
     const ref = firebase.storage().ref().child(`images/${imageName}`);
 
     const snapshot = await ref.put(blob);
@@ -123,13 +115,10 @@ export default class CustomActions extends Component {
       async (buttonIndex) => {
         switch (buttonIndex) {
           case 0:
-            console.log("user wants to pick an image");
             return this.imagePicker();
           case 1:
-            console.log("user wants to take a photo");
             return this.takePhoto();
           case 2:
-            console.log("user wants to get their location");
             return this.getLocation();
         }
       }
@@ -156,7 +145,6 @@ export default class CustomActions extends Component {
   }
 
   render() {
-    console.log("costumActions");
     return (
       <TouchableOpacity
         accessible={true}

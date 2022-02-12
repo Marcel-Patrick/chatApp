@@ -8,8 +8,7 @@ import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 import CustomActions from "./CustomActions";
 
 //import MapView
-// import MapView from "react-native-maps";
-import { MapView } from "expo";
+import MapView from "react-native-maps";
 
 // require google firebase
 const firebase = require("firebase");
@@ -22,7 +21,7 @@ export default class Chat extends Component {
       userID: "",
       amIConnected: false,
       messages: [],
-      text: " ",
+      text: "",
       user: {
         _id: "",
         name: "",
@@ -107,7 +106,6 @@ export default class Chat extends Component {
         this.setState({
           amIConnected: false,
         });
-        console.log("offline");
 
         // to retrieve chat messages from asyncStorage
         this.getMessages();
@@ -135,7 +133,6 @@ export default class Chat extends Component {
         location: data.location || null,
       });
     });
-    console.log("onCollectionUpdate 1", messages);
 
     this.setState({
       messages,
@@ -153,8 +150,6 @@ export default class Chat extends Component {
 
   // callback function used to add messages to current chat window and save it in firebase messages collection database
   onSend(messages = []) {
-    console.log("onSend 1");
-
     this.setState(
       (previousState) => ({
         messages: GiftedChat.append(previousState.messages, messages),
@@ -170,12 +165,9 @@ export default class Chat extends Component {
   async saveMessages() {
     // use a try-catch block, just in case the asyncStorage promise gets rejected
     try {
-      console.log("onSend 4");
-
       // to convert messages object into a string:
       await AsyncStorage.setItem("messages", JSON.stringify(this.state.messages));
       await AsyncStorage.setItem("userID", this.state.user._id);
-      console.log("onSend 5");
     } catch (error) {
       console.log(error.message);
     }
@@ -183,10 +175,7 @@ export default class Chat extends Component {
 
   //  add messages to the database
   addMessages() {
-    console.log("onSend 2");
-
     const message = this.state.messages[0];
-    console.log("onSend 2.1", message);
 
     // add new message to messages collection
 
@@ -198,7 +187,6 @@ export default class Chat extends Component {
       image: message.image || "",
       location: message.location || null,
     });
-    console.log("onSend 3");
   }
 
   // To delete messages in the asyncStirage if needed
@@ -277,12 +265,12 @@ export default class Chat extends Component {
           }}
         >
           <GiftedChat
-            renderBubble={this.renderBubble.bind(this)}
             messages={this.state.messages}
             renderInputToolbar={this.renderInputToolbar.bind(this)}
             renderActions={this.renderCustomActions.bind(this)}
             renderCustomView={this.renderCustomView.bind(this)}
             onSend={(messages) => this.onSend(messages)}
+            renderBubble={this.renderBubble.bind(this)}
             user={{
               _id: this.state.userID,
             }}
