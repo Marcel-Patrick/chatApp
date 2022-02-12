@@ -4,6 +4,13 @@ import NetInfo from "@react-native-community/netinfo";
 import { StyleSheet, View, Platform, KeyboardAvoidingView, LogBox } from "react-native";
 import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 
+// import action button and actions
+import CustomActions from "./CustomActions";
+
+//import MapView
+// import MapView from "react-native-maps";
+import { MapView } from "expo";
+
 // require google firebase
 const firebase = require("firebase");
 require("firebase/firestore");
@@ -15,11 +22,14 @@ export default class Chat extends Component {
       userID: "",
       amIConnected: false,
       messages: [],
+      text: " ",
       user: {
         _id: "",
         name: "",
         avatar: "",
       },
+      image: null,
+      location: null,
     };
 
     // Dadabase credentials
@@ -66,11 +76,6 @@ export default class Chat extends Component {
     // To find out the user's connection status
     NetInfo.fetch().then((connection) => {
       if (connection.isConnected) {
-        this.setState({
-          amIConnected: true,
-        });
-        console.log("online");
-
         // reference to the firestore messages collection
         this.referenceChatMessages = firebase.firestore().collection("messages");
         this.unsubscribe = this.referenceChatMessages.onSnapshot(this.onCollectionUpdate);
@@ -89,6 +94,7 @@ export default class Chat extends Component {
               _id: user.uid,
               name: this.props.route.params.username,
               avatar: "https://placeimg.com/140/140/any",
+              amIConnected: true,
             },
           });
 
@@ -118,15 +124,19 @@ export default class Chat extends Component {
       let data = doc.data();
       messages.push({
         _id: data._id,
-        text: data.text,
+        text: data.text || "",
         createdAt: data.createdAt.toDate(),
         user: {
           _id: data.user._id,
           name: data.user.name,
           avatar: data.user.avatar,
         },
+        image: data.image || null,
+        location: data.location || null,
       });
     });
+    console.log("onCollectionUpdate 1", messages);
+
     this.setState({
       messages,
     });
@@ -143,6 +153,8 @@ export default class Chat extends Component {
 
   // callback function used to add messages to current chat window and save it in firebase messages collection database
   onSend(messages = []) {
+    console.log("onSend 1");
+
     this.setState(
       (previousState) => ({
         messages: GiftedChat.append(previousState.messages, messages),
@@ -158,9 +170,12 @@ export default class Chat extends Component {
   async saveMessages() {
     // use a try-catch block, just in case the asyncStorage promise gets rejected
     try {
+      console.log("onSend 4");
+
       // to convert messages object into a string:
       await AsyncStorage.setItem("messages", JSON.stringify(this.state.messages));
       await AsyncStorage.setItem("userID", this.state.user._id);
+      console.log("onSend 5");
     } catch (error) {
       console.log(error.message);
     }
@@ -168,15 +183,22 @@ export default class Chat extends Component {
 
   //  add messages to the database
   addMessages() {
+    console.log("onSend 2");
+
     const message = this.state.messages[0];
+    console.log("onSend 2.1", message);
 
     // add new message to messages collection
+
     this.referenceChatMessages.add({
       _id: message._id,
-      text: message.text,
+      text: message.text || "",
       createdAt: message.createdAt,
       user: this.state.user,
+      image: message.image || "",
+      location: message.location || null,
     });
+    console.log("onSend 3");
   }
 
   // To delete messages in the asyncStirage if needed
@@ -193,7 +215,7 @@ export default class Chat extends Component {
 
   // function to hide input field when offline
   renderInputToolbar(props) {
-    if (this.state.amIConnected == false) {
+    if (this.props.amIConnected == false) {
     } else {
       return <InputToolbar {...props} />;
     }
@@ -215,6 +237,30 @@ export default class Chat extends Component {
     );
   }
 
+  // ceate the actions Button
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
+  //custom map view
+  renderCustomView(props) {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+      );
+    }
+    return null;
+  }
+
   render() {
     const { backgroundColor } = this.props.route.params;
     return (
@@ -231,10 +277,11 @@ export default class Chat extends Component {
           }}
         >
           <GiftedChat
-            // isConnected={this.state.isConnected}
-            renderInputToolbar={this.renderInputToolbar.bind(this)}
             renderBubble={this.renderBubble.bind(this)}
             messages={this.state.messages}
+            renderInputToolbar={this.renderInputToolbar.bind(this)}
+            renderActions={this.renderCustomActions.bind(this)}
+            renderCustomView={this.renderCustomView.bind(this)}
             onSend={(messages) => this.onSend(messages)}
             user={{
               _id: this.state.userID,
