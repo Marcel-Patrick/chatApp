@@ -267,6 +267,7 @@ export default class Chat extends Component {
           <GiftedChat
             messages={this.state.messages}
             renderInputToolbar={this.renderInputToolbar.bind(this)}
+            renderUsernameOnMessage={true}
             renderActions={this.renderCustomActions.bind(this)}
             renderCustomView={this.renderCustomView.bind(this)}
             onSend={(messages) => this.onSend(messages)}
