@@ -173,14 +173,16 @@ const styles = StyleSheet.create({
     borderColor: "#b2b2b2",
     borderWidth: 2,
     flex: 1,
+    paddingBottom: 5,
   },
   iconText: {
     color: "#b2b2b2",
     fontWeight: "bold",
     fontSize: 16,
     backgroundColor: "transparent",
-    bottom: 1.5,
-    left: 6,
+    alignItems: "center",
+    alignSelf: "center",
+    top: -1,
   },
 });
 
