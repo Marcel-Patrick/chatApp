@@ -189,3 +189,14 @@ For this Achievement’s project, you’ll use React Native, Expo, and Google Fi
 22. Knowing if a user is on- or offline can be useful in determining which actions to perform. If, for example, a user is offline, you can fetch and display their data from asyncStorage; and if a user is online, you could first load their data from local storage, then sync up with the data stored on your server. To find out if a user is online or not, you can use NetInfo package.<br/>
     install the package using expo-cli by running this command:<br/>
     expo install @react-native-community/netinfo
+
+23. Finally add additional communication features, like the ability to share images and location data. <br/>
+    To implement such capabilities, you first need to learn how to access users’ hardware components via their operating system’s APIs.<br/>
+    To allow users of your chat app to select a photo from their library or take a new photo. To use the ImagePicker API and Permissions API, you first need to install:<br/>
+    expo install expo-permissions<br/>
+    expo install expo-image-picker<br/>
+
+24. The last step is to import the Location API.<br/> You want to display the location data in a map (Google Maps on Android and Apple Maps on iOS), so you need to import the MapView component, as well.<br/>
+    In order to import the mentioned APIs and tools, make sure to install:<br/>
+    expo install expo-location<br/>
+    expo install react-native-maps
