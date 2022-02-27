@@ -200,3 +200,12 @@ For this Achievement’s project, you’ll use React Native, Expo, and Google Fi
     In order to import the mentioned APIs and tools, make sure to install:<br/>
     expo install expo-location<br/>
     expo install react-native-maps
+
+---
+
+# chattApp after-login page:
+
+_Since it was not part of the task, this App has not been deployed and no live version was created_
+
+An after-login page wound looking like:
+![WelcomPage](./assets/Screenshot_ChatMe.png)
